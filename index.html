@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giấy Kết Hôn Online</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: url('https://i.imgur.com/eEIYw6q.jpeg') center/cover no-repeat fixed;
+      padding: 30px;
+      text-align: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Hiệu ứng giấy chứng nhận */
+    form, #result {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      opacity: 0;
+      animation: fadeIn 2s forwards; /* Hiệu ứng fade in */
+    }
+
+    /* Hiệu ứng fade in */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      margin: 10px auto;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background: #ff1493;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .img-pair {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Hiệu ứng hoa rơi */
+    .flower {
+      position: fixed;
+      top: -50px;
+      animation: fall 10s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(120vh) rotate(360deg);
+      }
+    }
+
+    /* Viền và bóng đổ cho giấy chứng nhận */
+    #result {
+      background: rgba(255, 255, 255, 0.8);
+      border: 4px solid #ff69b4; /* Viền màu hồng */
+      border-radius: 25px;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.7); /* Bóng đổ màu hồng */
+      animation: slideUp 2s ease-out forwards;
+    }
+
+    /* Hiệu ứng trượt lên */
+    @keyframes slideUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 🎵 Nhạc SoundCloud tự phát và ẩn -->
+  <iframe 
+    style="display: none"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ahmad-fauzan-148336400/beautiful-in-white-lofi-remix&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false">
+  </iframe>
+
+  <!-- 🌸 Hiệu ứng hoa rơi -->
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.fontSize = (Math.random() * 24 + 12) + "px";
+      flower.innerHTML = "🌸";
+      flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      document.body.appendChild(flower);
+    }
+  </script>
+
+  <!-- 💍 Form đăng ký kết hôn -->
+  <form id="cccdForm" onsubmit="handleSubmit(event)">
+    <h2>💘 Ghi danh hôn nhân 💘</h2>
+    <label>Họ và tên của bạn:</label>
+    <input type="text" id="name1" required>
+    <label>Số CCCD:</label>
+    <input type="text" id="cccd1" required>
+    <button type="submit">Xác nhận kết hôn</button>
+  </form>
+
+  <!-- 💌 Kết quả -->
+  <div id="result" style="display:none;">
+    <h2>💍 GIẤY CHỨNG NHẬN KẾT HÔN 💍</h2>
+    <p>Hôm nay, ngày <span id="date"></span>,</p>
+    <p>Chúng tôi xác nhận:</p>
+    <p><strong id="out1"></strong></p>
+    <p>và</p>
+    <p><strong>Phạm Ngọc Tiến (CCCD: 037205001112)</strong></p>
+    <p>ĐÃ CHÍNH THỨC KẾT HÔN ❤️🎉</p>
+
+    <!-- 🖼️ Hai ảnh cưới trong khung -->
+    <div class="img-pair">
+      <img src="https://i.imgur.com/4g51Kte.jpeg" alt="Ảnh cưới 1" style="width: 45%;">
+      <img src="https://i.imgur.com/2lYeRf8.jpeg" alt="Ảnh cưới 2" style="width: 45%;">
+    </div>
+
+    <p>Chúc hai bạn trăm năm hạnh phúc!</p>
+    <button onclick="window.print()">🖨️ In giấy kết hôn</button>
+  </div>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name1 = document.getElementById("name1").value.trim();
+      const cccd1 = document.getElementById("cccd1").value.trim();
+      const today = new Date().toLocaleDateString("vi-VN");
+      document.getElementById("date").innerText = today;
+      document.getElementById("out1").innerText = `${name1} (CCCD: ${cccd1})`;
+      document.getElementById("cccdForm").style.display = "none";
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
